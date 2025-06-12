@@ -1,5 +1,4 @@
 const express = require('express');
-const serverless = require('serverless-http');
 const dotenv = require('dotenv');
 const cors = require('cors');
 
@@ -24,9 +23,6 @@ app.use(express.json());
 const polishRoute = require('./routes/polish');
 app.use('/api/polish', polishRoute);
 
-// ✅ Export for Vercel / Render (serverless)
-module.exports = app;
-module.exports.handler = serverless(app);
 
 // ✅ Local testing (when run with `node index.js`)
 const PORT = process.env.PORT || 4000;
