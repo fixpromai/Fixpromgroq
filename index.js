@@ -6,28 +6,25 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS Middleware – must come BEFORE routes
+// ✅ Enable CORS for all domains
 app.use(cors({
-  origin: '*', // Allows all domains
+  origin: '*',
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200
 }));
 
-// ✅ Preflight support
+// ✅ Allow preflight requests
 app.options('*', cors());
 
 app.use(express.json());
 
-// ✅ API Routes
+// ✅ Routes
 const polishRoute = require('./routes/polish');
 app.use('/api/polish', polishRoute);
 
-
-// ✅ Local testing (when run with `node index.js`)
+// ✅ Bind to port so Render detects it
 const PORT = process.env.PORT || 4000;
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`🚀 Fixprom backend running on http://localhost:${PORT}`);
+});
