@@ -75,6 +75,10 @@ router.post('/', async (req, res) => {
     return res.status(400).json({ error: 'Input text is required' });
   }
 
+  if (safeInput.toLowerCase() === "ping") {
+    return res.json({ polishedPrompt: "pong" });
+  }
+  
   try {
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
